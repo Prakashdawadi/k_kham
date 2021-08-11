@@ -1,0 +1,117 @@
+ .text2{
+	color: green;
+	text-decoration: underline ;
+		font-style:bold;
+}
+
+/* for all_signup middle page*/
+div#img{
+	/*background-image: url("momo1.jpg");*/
+	background-color: red;
+ 	width: 100%;
+	height: 500px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+	object-fit: cover;
+	margin:0,15px;
+	border:3px solid black;
+}
+
+	/* user all footer*/
+.p{
+  text-align: center;
+  color:red;
+
+ }
+.text{
+		text-align: middle;
+		color: white;
+    font-weight: bold;
+
+
+}
+.text1{
+		text-align: left;
+		color: white;
+		margin:auto;
+		padding-right:20px;
+		font-style: bold;
+		font-family: ;
+    font-weight: bold;
+
+}
+.text3{
+text-align: middle;
+		color: white;
+		padding:0 0 0 20px;
+    font-weight: bold;
+}
+
+
+.segment-two{
+	padding:0 0 0 50px;
+}
+.segment-three{
+	padding:0 50px 0 0;
+}
+/*.fa {
+  padding: 25px;
+  font-size: 25px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  text-decoration: none;
+
+}*/
+.fa {
+  padding: 12px;
+  font-siz 15px;
+  /*width: 50px;
+  height:40px;*/
+  text-align: center;
+  text-decoration: none;
+}
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+  height: 40px;
+  width: 36px;
+  font-size: 20px;
+    padding: 10px;
+
+
+}
+.fa-youtube {
+  background: #bb0000;
+  color: white;
+  
+  height: 40px;
+  width: 36px;
+  font-size: 15px;
+    padding: 10px;
+
+
+}
+
+.fa-instagram {
+  background: #125688;
+  color: pink;
+  height: 40px;
+  width: 36px;
+  font-size: 20px;
+    padding: 10px;
+
+
+}
+  .fa-twitter {
+  background: #55ACEE;
+  color: white;
+  height: 40px;
+  width: 36px;
+  font-size: 20px;
+    padding: 10px;
+
+
+}
+
