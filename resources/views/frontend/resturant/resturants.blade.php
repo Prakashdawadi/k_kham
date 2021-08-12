@@ -5,16 +5,16 @@
 	<div class="row">
 		<div style="width:1700px;height:400px;border:1px solid; background-color: black;">
 			<div class="row"> 
-         <img   style="padding-top: 50px; padding-left: 50px;" src="{{asset('images/resturant/'.$result[0]->rest_image)}}" width="350" height="200" class="img-responsive" alt="">
+         <img   style="padding-top: 50px; padding-left: 50px;" src="{{asset('images/resturant/'.$result[0]->resturantName->rest_image)}}" width="350" height="200" class="img-responsive" alt="">
        <div class="col-8">
        	<div class="row">
        		<div class="col-12">
-       			<h4 style="color: white; padding-left: 50px; padding-top: 60px;">{{$result[0]->rest_name}}</h4>
+       			<h4 style="color: white; padding-left: 50px; padding-top: 60px;">{{$result[0]->resturantName->rest_name}}</h4>
        		</div>
        	</div>
        		<div class="row">
        		<div class="col-12">
-       			<h5 style="color: white; padding-left: 30px; padding-top: 5px;"><i class="fa fa-map-marker"></i>{{$result[0]->rest_address}}</h5>
+       			<h5 style="color: white; padding-left: 30px; padding-top: 5px;"><i class="fa fa-map-marker"></i>{{$result[0]->resturantName->rest_address}}</h5>
        		</div>
  		
         </div>
@@ -27,7 +27,7 @@
  	</div>		
 			
 			<div class=" col-md-6 col-sm-12 offset-lg-4 col-lg-4">
- 		<h5 style="color: white; padding-left: 50px;padding-top: 50px;"> Delivery hour:({{$result[0]->rest_otime}} am-{{$result[0]->rest_ctime}} pm)</h5>
+ 		<h5 style="color: white; padding-left: 50px;padding-top: 50px;"> Delivery hour:({{$result[0]->resturantName->rest_otime}} am-{{$result[0]->resturantName->rest_ctime}} pm)</h5>
  	   </div>
           </div>
 		</div>

@@ -57,8 +57,8 @@ var {
 </div>  
 
 @foreach($results as $datas) 
-@endforeach
- @if($datas->all_total !== 0)
+
+ @if($datas->all_total !== 0 )
 <a href="{{url('/index')}}" class="btn btn-primary btn-sm"> Continuing Shopping</a>
 
 <div class="card">
@@ -168,14 +168,15 @@ Rs.{{$datas->all_total}}  (*Additional Rs.100  delivery charge )
 
 <a href="{{url('index/checkout')}}" type="button" class="btn btn-success">checkout</a>
 @else
-<h3 class="text-center">Empty Bag<br>  please choose your favourite food</h3>
+<h3 class="text-center">Empty Bag<br>  please choose your favourite food</h3><br>
+<a href="{{url('/index')}}" class="btn btn-primary btn-lg"> Continuing Shopping</a>
 @endif 
 
 
 </div> <!-- card.// -->
 
 </div> 
-
+@endforeach
  
 </table>
 
@@ -239,7 +240,7 @@ $(document).ready(function(){
 
 </script>
 
-<br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br>
 <br>
 <br>
 

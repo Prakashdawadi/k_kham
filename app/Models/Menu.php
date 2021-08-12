@@ -42,5 +42,9 @@ class Menu extends Model
         return $this->hasOne(Resturant::class,'id','rests_id');
     }
 
+    public function menuDetails(){
+        return $this->hasMany(Resturant::class,'id','rests_id');
+    }
+
 
 }

@@ -103,8 +103,16 @@
        
       <div class=" hotel_pointer col-lg-3 col-md-3">
         <div class="hovereffect ">
+          <form action="{{url('index/'.$data->rest_name)}}" method="post">
+            @csrf
+            <input type="hidden" name= "rest_name" value="{{$data->rest_name}}">
+            <input type="hidden" name="id" value="{{$data->id}}">
+            <button type="submit" href="{{url('index/'.$data->rest_name)}}";><img src="{{asset('images/resturant/'.$data->rest_image)}}" class="img-responsive">></button>
+            <!-- <a type="submit" href="{{url('index/'.$data->rest_name)}}";><img src="{{asset('images/resturant/'.$data->rest_image)}}" class="img-responsive"></a>
+             -->
+          </form>
 
-          <a href="{{url('index/'.$data->rest_name)}}";><img src="{{asset('images/resturant/'.$data->rest_image)}}" class="img-responsive"></a>
+          
           </div>
 
          

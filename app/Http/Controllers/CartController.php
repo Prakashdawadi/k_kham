@@ -399,15 +399,9 @@ class CartController extends Controller
        $success = $all_total->save();
 
 
-
            }
 
-
                  // endgrand total
-
-
-
-
 
         
              return json_encode('Add to cart successfully');
@@ -447,17 +441,6 @@ class CartController extends Controller
 
 
 
-/*
-    public function myCart(){
-
-      return view ('frontend.bag.bag_list');
-
-
-
-
-    }*/
-
-
     public function showCart(Request $request){
 
         $userId = session::get('id');
@@ -467,14 +450,13 @@ class CartController extends Controller
        $carts= DB::table('grand_totals')
        ->where('user_id',$userId)
        ->get();
-
+     
        // to count whether there is cart on db or not
 
        $count = DB::table('carts')->
        where('user_id',$userId)
        ->where('user_email',$email)->get();
 
-      // dd($count);
 
        //  end of to count whether there is cart on db or not
 

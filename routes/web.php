@@ -219,7 +219,8 @@ Route::get('index',[FronendController::class,'index1']);
 
 //Route::get('index/{cats}',[FronendController::class,'resturant_list']);
 
-Route::get('index/{rest}',[FronendController::class,'eachresturant']);
+//Route::get('index/{rest}',[FronendController::class,'eachresturant']);
+Route::post('index/{rest}',[FronendController::class,'eachresturant']);
 
 
 

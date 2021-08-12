@@ -211,13 +211,13 @@ class MenuController extends Controller
 }
     
     public function viewproduct($product_id){
-       
 
+       
         $banner = DB::table('bannners')->select('bans_image')
         ->where('bans_status','active')->inRandomOrder()->limit(5)->get();
 
         $product_info = Menu::select('menu_image','menu_name','ingredients','direction')
-        ->where('rests_id',$product_id)
+        ->where('id',$product_id)
         ->get();
        
 

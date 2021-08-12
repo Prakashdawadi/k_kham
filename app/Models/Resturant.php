@@ -23,10 +23,7 @@ class Resturant extends Model
 				     'updated_by'
 	];
 
-    public function category(){
-
-    	return $this->belongsTo('App\Models\Category');
-    }
+    
 
     public function menu(){
 

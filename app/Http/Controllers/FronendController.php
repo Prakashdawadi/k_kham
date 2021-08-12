@@ -7,6 +7,7 @@ use App\Models\Fronend;
 use App\Models\Bannner;
 use App\Models\Category;
 use App\Models\Resturant;
+use App\models\Menu;
 use Illuminate\Support\Facades\DB;
 use Auth;
 
@@ -45,13 +46,15 @@ class FronendController extends Controller
     }
    
  public function eachresturant(Request $request){
-    $rest = $request->rest;
-    $data1['result'] = DB::table('menus')->join('resturants','resturants.id','rests_id')
 
-    ->where('resturants.rest_name',$rest)
-    ->where('menu_status','active')
-    ->get();   
-    return view('frontend.resturant.resturants', $data1);
+
+  $menuInfo['result'] = Menu::with('resturantName')
+                    ->where('rests_id',$request->id)->get();
+      
+
+
+
+    return view('frontend.resturant.resturants', $menuInfo);
      
  }
 
