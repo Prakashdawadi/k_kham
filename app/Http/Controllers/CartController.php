@@ -440,8 +440,8 @@ class CartController extends Controller
        $cart = DB::table('carts')->where('user_id',$userId)->get();
        $carts= DB::table('grand_totals')
        ->where('user_id',$userId)
-       ->get();
-     
+       ->first();
+       //dd($carts);
        // to count whether there is cart on db or not
 
        $count = DB::table('carts')->

@@ -56,9 +56,10 @@ var {
 <div>
 </div>  
 
-@foreach($results as $datas) 
 
- @if($datas->all_total !== 0 )
+
+
+ @if($results !== null )
 <a href="{{url('/index')}}" class="btn btn-primary btn-sm"> Continuing Shopping</a>
 
 <div class="card">
@@ -151,8 +152,8 @@ var {
 
 </table>
 
-@if($datas->all_total !== 0)
 
+@if($results !== null ) 
 <label for=""></label>
 
 <div id="grandtotal">
@@ -160,7 +161,7 @@ var {
 <div class="row">
   <div class="offset-col-4" style="margin-left: 770px;">
  Total: 
-Rs.{{$datas->all_total}}  (*Additional Rs.100  delivery charge )
+Rs.{{$results->all_total}}  (*Additional Rs.100  delivery charge )
 </div>
 </div>
 
@@ -168,17 +169,19 @@ Rs.{{$datas->all_total}}  (*Additional Rs.100  delivery charge )
 
 <a href="{{url('index/checkout')}}" type="button" class="btn btn-success">checkout</a>
 @else
+
 <h3 class="text-center">Empty Bag<br>  please choose your favourite food</h3><br>
-<a href="{{url('/index')}}" class="btn btn-primary btn-lg" style="display:block; width:300px;  margin:0 auto;"> Continuing Shopping</a>
+<a href="{{url('/index')}}" class="btn btn-primary btn-lg" style="display:block; width:300px;  margin:0 auto;"> Continuing Shoppingss</a>
 @endif 
 
 
 </div> <!-- card.// -->
 
 </div> 
-@endforeach
+
  
 </table>
+
 
 
 </div>
