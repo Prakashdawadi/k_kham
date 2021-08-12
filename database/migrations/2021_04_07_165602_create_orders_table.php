@@ -28,7 +28,7 @@ class CreateOrdersTable extends Migration
            $table->string('user_address');
            $table->integer('all_total');
            $table->string('payment_mode');
-           $table->enum('status',['preparing','Ontheway','delivered'])->default('preparing');
+           $table->enum('status',['preparing','Ontheway','delivered','cancelled'])->default('preparing');
            $table->timestamps();
         });
     }

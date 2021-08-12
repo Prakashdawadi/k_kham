@@ -7,24 +7,7 @@
   <h2> order list </h2>
   <hr>
 
-<!-- <style type="text/css">
-#table {
-  overflow: hidden;
-  position: absolute;
 
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 20;
-  height: 100%;
-  width: 500%;
-}
-
-
-
-</style>
- -->
-    
     
       <br><br>
 

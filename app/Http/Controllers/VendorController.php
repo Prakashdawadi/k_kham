@@ -205,13 +205,19 @@ class VendorController extends Controller
       $id    = session::get('id');
       $email = session::get('ven_email');
 
+      $order = Order::all();
+      //dd($order);
+
     $data1['result'] = DB::table('orders')->join('vendors','vendors.resturant_id','rest_id')
 
 
        ->where('vendors.id',$id)
        ->where('vendors.ven_email', $email)
+       ->select('orders.*','vendors.resturant_id')
        ->orderBy('orders.updated_at','DESC')
        ->paginate(5);
+
+  
     
 
    return view('frontend.vendor.order_list.all_order',$data1);
@@ -224,6 +230,7 @@ class VendorController extends Controller
 
 
       public function order_edit($id){
+        //dd($id);
 
 
         $orderedit['rest'] = Order::select('id','order_id' ,'order_items','quantity','all_total','status','user_name','user_address')->orderBy('updated_at','DESC')
@@ -231,7 +238,6 @@ class VendorController extends Controller
        ->where('id',$id)
 
         ->get();
-
         return view('frontend.vendor.order_list.order_edit' , $orderedit);
 
 

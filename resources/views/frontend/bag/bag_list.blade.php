@@ -169,7 +169,7 @@ Rs.{{$datas->all_total}}  (*Additional Rs.100  delivery charge )
 <a href="{{url('index/checkout')}}" type="button" class="btn btn-success">checkout</a>
 @else
 <h3 class="text-center">Empty Bag<br>  please choose your favourite food</h3><br>
-<a href="{{url('/index')}}" class="btn btn-primary btn-lg"> Continuing Shopping</a>
+<a href="{{url('/index')}}" class="btn btn-primary btn-lg" style="display:block; width:300px;  margin:0 auto;"> Continuing Shopping</a>
 @endif 
 
 
@@ -216,8 +216,8 @@ $(document).ready(function(){
     //alert(prodId);
     jQuery.ajax({
       datatype:'html',
-      //url: "http://k_kham.loc/index/cart/update/" + prodId,
-      url: "http://127.0.0.1:8000/index/cart/update/" + prodId,
+      url: "http://k_kham.loc/index/cart/update/" + prodId,
+      //url: "http://127.0.0.1:8000/index/cart/update/" + prodId,
       data:'rowid=' + rowid + '&prodId=' + prodId + '&qty=' +qty,
       type:'get',
       success: function(data){

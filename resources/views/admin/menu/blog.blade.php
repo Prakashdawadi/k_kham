@@ -55,7 +55,7 @@
 
 					
 					<li>
-						<img src="{{asset('images/banner/'.$data1->bans_image)}}" height="150" alt="Image">
+						<img src="{{asset('images/banner/'.$data1->bans_image)}}" height="100"  alt="Image">
 					
 							
 						

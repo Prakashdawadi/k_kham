@@ -221,8 +221,8 @@ $(document).ready(function(){
     //alert(prodId);
     jQuery.ajax({
       datatype:'html',
-     // url: "http://k_kham.loc/index/cart/update/" + prodId,
-      url: "http://127.0.0.1:8000/index/cart/update/" + prodId,
+      url: "http://k_kham.loc/index/cart/update/" + prodId,
+     // url: "http://127.0.0.1:8000/index/cart/update/" + prodId,
       data:'rowid=' + rowid + '&prodId=' + prodId + '&qty=' +qty,
       type:'get',
       success: function(data){

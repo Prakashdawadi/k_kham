@@ -108,8 +108,8 @@ $.ajaxSetup({
  	function addToCart(product_id,quantity){
  		//alert(product_id,quantity);
  		
-     // $.post("http://k_kham.loc/index/addtocart/store",
-     $.post("http://127.0.0.1:8000/index/addtocart/store",
+      $.post("http://k_kham.loc/index/addtocart/store",
+     //$.post("http://127.0.0.1:8000/index/addtocart/store",
  		{
  			product_id:product_id
 
@@ -117,11 +117,17 @@ $.ajaxSetup({
  		})
 
 		  .done(function( data ) {
-		  //alert( "Data Loaded: " + data );
-		  alertify.set('notifier','position', 'top-center');
-         alertify.success(data);
+       // console.log(data.status);
+        if(data.status == false){
 
-         
+       window.location = "users/user_login";
+
+        }else{
+
+		  alertify.set('notifier','position', 'top-center');
+        alertify.success(data);
+
+         }
 		   
          
 });

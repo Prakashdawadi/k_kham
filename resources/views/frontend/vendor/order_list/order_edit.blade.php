@@ -1,5 +1,5 @@
 @extends('frontend/vendor/layout')
-@section('page_title','list_coupon')
+@section('page_title','edit_order')
 @section('container')
 
 
@@ -9,10 +9,6 @@
    </div>
 
 
-            <!--  @error('rests_menu')
-					 <div class=" alert-danger" id="mydiv">
-					 {{$message}}</div>
-					@enderror -->
 
 					@error('order_status')
 					 <div class=" alert-danger" id="mydiv">

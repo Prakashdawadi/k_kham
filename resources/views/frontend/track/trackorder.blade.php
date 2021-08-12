@@ -117,8 +117,8 @@ $(document).ready(function(){
 
   jQuery.ajax({
 
-    // url: "http://k_kham.loc/index/track/search",
-     url: "http://127.0.0.1:8000/index/track/search",
+     url: "http://k_kham.loc/index/track/search",
+    // url: "http://127.0.0.1:8000/index/track/search",
      data:jQuery('#form').serialize(),
      type:'post',
      success:function(result){

@@ -166,8 +166,6 @@ class CartController extends Controller
            // dd('new');
 
 
-
-
       $all_total = new  GrandTotal;
       
       $all_total->user_id     =     $userId;
@@ -177,11 +175,8 @@ class CartController extends Controller
        $success = $all_total->save();
 
 
-
            }
    
-
-
                     // endgrand total
 
 
@@ -251,9 +246,7 @@ class CartController extends Controller
 
         }
 
-
         //dd($total);
-
 
         $cart = DB::table('grand_totals')->select('user_id','email')
 
@@ -410,20 +403,18 @@ class CartController extends Controller
 
 
 
-
                 }
-
-
-
-
-
 
 
         }else{
             // if the user is not login
 
-         
-            return json_encode("please login to add to cart");
+            //return view('frontend.users.user_login');
+            return response()->json([
+                'data'   => null,
+                'status' => false,
+                'msg'    => "please login"
+            ]);
 
 
         }
