@@ -23,13 +23,11 @@
                          <table class="table col-md-12">
                 <thead class="thead-dark table-bordered table-hover">
                   <th scope="col">Id</th>
-                  <th scope="col">Id</th>
                   <th scope="col">Food Name</th>
                   <th scope="col">price</th>
-                  <th scope="col">Resturant Id</th>
+                  <th scope="col">Resturant Name</th>
                   <th scope="col">status</th>
-                  <th scope="col">Image</th>
-                
+                  <th scope="col">Image</th>       
                   <th scope="col">Action</th>
                
               </thead>
@@ -44,10 +42,10 @@
      <tr>
        <td>{{$key}} </td>
        <?php $key++ ?> 
-      <td>{{$list->menu_id}}</td>
+     
       <td>{{$list->menu_name}}</td>
-      <td>{{$list->menu_price}}</td> 
-      <td>{{$list->rests_id}}</td> 
+      <td>NPR{{$list->menu_price}}</td> 
+      <td>{{$list->resturantName->rest_name}}</td> 
 
     
      

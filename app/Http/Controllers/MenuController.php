@@ -14,7 +14,9 @@ class MenuController extends Controller
      public function list_menu()
     {
 
-        $data['result'] = Menu::orderBy('updated_at','DESC')->paginate('5');
+        $data['result'] = Menu::with('resturantName')
+                        ->orderBy('updated_at','DESC')->paginate('5');
+       
 
        return view('admin.menu.list_menu',$data);
     }

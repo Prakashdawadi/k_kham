@@ -42,7 +42,7 @@ class AdminController extends Controller
                 if(Hash::check($request->post('password'),$data->password)){
 
                   if($data->status =='active'){
-                   if($data->role =='Super Admin' || $data->role =='admin'){
+                   if($data->role =='Super Admin' || $data->role =='Admin'){
                     
                $request->session()->put('ADMIN_LOGIN', true);
                $request->session()->put('name', $data->name);

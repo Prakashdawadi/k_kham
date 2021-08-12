@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Resturant;
 
 class Menu extends Model
 {
@@ -35,6 +36,10 @@ class Menu extends Model
 
     	return $this->hasMany('App\Models\Cart');
 
+    }
+
+    public function resturantName(){
+        return $this->hasOne(Resturant::class,'id','rests_id');
     }
 
 
