@@ -19,7 +19,10 @@ class CreateBannnersTable extends Migration
             $table->string('bans_link')->nullable();
             $table->string('bans_image',100);
             $table->enum('bans_status',['active','inactive'])->default('inactive');
-            $table->foreignId('added_by')->nullable()->constrained('admins','id')->onDelete('SET NULL')->onUpdate('CASCADE');
+            $table->unsignedBigInteger('added_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->foreign('added_by')->references('id')->on('admins')->onDelete('SET NULL')->onUpdate('CASCADE');
+            $table->foreign('updated_by')->references('id')->on('admins')->onDelete('SET NULL')->onUpdate('CASCADE');
               $table->timestamps();
         });
     }

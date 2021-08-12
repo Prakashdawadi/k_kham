@@ -9,8 +9,18 @@ class Menu extends Model
 {
     use HasFactory;
     protected $table = 'menus';
-    protected $primaryKey = 'menu_id';
-    protected $fillable =['menu_name','menu_price','rests_name','menu_status'];
+    protected $fillable =[
+                    'menu_name',
+                    'menu_price',
+                    'rests_id',
+                    'rests_name',
+                    'menu_status',
+                    'ingredients',
+                    'menu_image',
+                    'direction',
+                    'added_by',
+                    'updated_by'
+                ];
 
 
     public function resturantss(){

@@ -15,11 +15,16 @@ class CreateVendorsTable extends Migration
     {
         Schema::create('vendors', function (Blueprint $table) {
             $table->id()->autoIncrements()->unsignedInteger();
+            $table->unsignedBigInteger('resturant_id')->nullable();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('ven_email')->unique();
             $table->string('password');
             $table->unsignedBigInteger('phone');
+            $table->string('address');
+            $table->enum('ven_status',['active','inactive'])->default('inactive');
+            $table->enum('role',['admin','customer','vendor'])->default('vendor');
             $table->string('resturant_name');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

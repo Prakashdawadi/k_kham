@@ -58,7 +58,7 @@
              @endif
       
 
-      <td> <a href="{{url('admin/banner/add_banner/edit/'.$list->id)}}"><button class=" btn-circle btn-success"><i class="far fa-edit"></i> </button>  </a> 
+      <td> <a href="{{url('admin/banner/edit_banner/edit/'.$list->id)}}"><button class=" btn-circle btn-success"><i class="far fa-edit"></i> </button>  </a> 
 
      <a href="{{url('admin/banner/list_banner/delete/'.$list->id)}}"> <button  onclick="return confirm('Are you sure want to delete {{$list->bans_name}} banner? ')" class="btn btn-circle btn-danger"><i class="far fa-trash-alt"></i> </button> </td> </a>
       

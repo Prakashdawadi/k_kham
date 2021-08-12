@@ -24,10 +24,10 @@ class CartController extends Controller
 
 
          $data = DB::table('menus')
-        ->where('menu_id', $request->product_id)->get(); // this one to get resturant id from product id
+        ->where('id', $request->product_id)->get(); // this one to get resturant id from product id
 
         $data1 = DB::table('menus')
-        ->where('menu_id', $request->product_id)->first(); // this one is to store menu information
+        ->where('id', $request->product_id)->first(); // this one is to store menu information
 
 
             // to check cart items is null or not
@@ -38,7 +38,7 @@ class CartController extends Controller
 
 
 
-        $data2 = DB::table('menus')->select('rests_id')  ->where('menu_id', $request->product_id)->first();
+        $data2 = DB::table('menus')->select('rests_id')  ->where('id', $request->product_id)->first();
        // dd($data2->rests_id);
 
         $data23 = DB::table('carts')->select('user_email')->where('user_email', session('email'))->first();
@@ -62,8 +62,6 @@ class CartController extends Controller
        
 }
 }
-
-
 
 
          foreach($data as $obj)  //warning generated here
@@ -204,7 +202,7 @@ class CartController extends Controller
 
                  $cart4 = new Cart;
 
-                $cart4->food_id           =       $data1->menu_id;
+                $cart4->food_id           =       $data1->id;
                 $cart4->food_name         =      $data1->menu_name;
                 $cart4->res_name          =       $resturantname->rest_name ;
             
@@ -315,7 +313,7 @@ class CartController extends Controller
 
                  $cart = new Cart;
 
-                $cart->food_id           =       $data1->menu_id;
+                $cart->food_id           =       $data1->id;
                 $cart->food_name         =      $data1->menu_name;
                 $cart->res_name          =       $resturantname->rest_name ;
             

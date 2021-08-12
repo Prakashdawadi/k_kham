@@ -35,25 +35,19 @@ class AdminController extends Controller
 
                 $email = $request->email;
 
-             $data = Admin::where(['email'=>$email])->first();
+             $data = Admin::where('email',$email)->first();
+
                  if($data){
  
                 if(Hash::check($request->post('password'),$data->password)){
 
                   if($data->status =='active'){
-                   if($data->role =='admin'){
+                   if($data->role =='Super Admin' || $data->role =='admin'){
                     
-                   // dd($request->post());
-                    
-                    $data = DB::table('admins')->select('name')
-                    ->where('email',$email)->first();
-
-                    //dd($data);
-
                $request->session()->put('ADMIN_LOGIN', true);
                $request->session()->put('name', $data->name);
                 $request->session()->put('email', $email);
-               // $request->session()->put('id',$data['0']->id);
+                $request->session()->put('id',$data['id']);
                 $request->session()->flash('success','welcome to the Dashboard');
                                  return redirect('admin/dashboard');
                              
@@ -173,11 +167,8 @@ class AdminController extends Controller
 
       public function  editinactivevendor(Request $request,$id){
 
-       // dd('hello',$id);
-
-
          if($id>0){
-            $match = Vendor::where('ven_id', $id)->exists();  
+            $match = Vendor::where('id', $id)->exists();  
                    
             if( $match != $id)
                {
@@ -186,17 +177,17 @@ class AdminController extends Controller
                  return redirect('admin/dashboard');
                 }
        
-              $edit = Vendor::where(['ven_id'=> $id])->get(); 
+              $edit = Vendor::where(['id'=> $id])->get(); 
 
        // dd($id); 
 
-                $data ['name']             =  $edit['0']->name;
+                $data ['name']                  =  $edit['0']->name;
                 $data['rest_address']           =  $edit['0']->address;
                 $data['rest_email']             =  $edit['0']->ven_email;
                 $data['rest_phone']             =  $edit['0']->phone; 
                 $data['rest_status']            =  $edit['0']->ven_status;
-                $data['ven_id']                 =  $edit['0']->ven_id;
-                $data['role']                 =  $edit['0']->role;
+                $data['id']                    =  $edit['0']->id;
+                $data['role']                   =  $edit['0']->role;
                 $data['rest_name']              =  $edit['0']->resturant_name;
 
                // dd($data['rest_name']);
@@ -211,17 +202,14 @@ class AdminController extends Controller
 
 
     public function inactivendorupdate(Request $request){
-
-      
- //dd($request->post());
-
+     
       $name  = $request->name;
       $email = $request->email;
        $phone = $request->phone;
         $address = $request->address;
          $rest_name = $request->rest_name;
           $role = $request->role;
-           $ven_id = $request->ven_id;
+           $id = $request->id;
             $status = $request->status;
             //dd($status);
      
@@ -236,17 +224,11 @@ class AdminController extends Controller
                  
            'status'            =>  'required|in:active,inactive',
 
-
         ]);
-       // dd($request->post());
 
         $email_match = DB::table('resturants')->select('id')
 
         ->where('rest_email',$email)->first();
-
-        //dd($email_match->id);
-
-       // dd($email_match);
 
          if($email_match == null){
           $request->session()->flash('error', "first add the resturant of this vendor then only  then make the vendor active");
@@ -255,9 +237,7 @@ class AdminController extends Controller
         }
 
         $sameid = $email_match->id;
-
-        
-
+      
 
      $data = DB::update('update vendors set 
       resturant_id = ?,   
@@ -269,14 +249,11 @@ class AdminController extends Controller
           ven_status = ? ,
            role = ? 
            
-      where ven_id = ?', 
-      [$sameid,$name,$email,$phone,$address,$rest_name,$status,$role , $ven_id]);
+      where id = ?', 
+      [$sameid,$name,$email,$phone,$address,$rest_name,$status,$role , $id]);
 
-       /*$affected = DB::table('users')
-              ->where('id', 1)
-              ->update(['votes' => 1])*/
               if($data){
-               // dd('updated');
+  
 
               $request->session()->flash('success', "vendor  status has been changed");
 
@@ -300,13 +277,9 @@ class AdminController extends Controller
 
     public function activevendor(){
 
-      //dd('hello');
-
       $active = DB::table('vendors')
       ->where('ven_status','active')->paginate(5);
-
-    //  dd($active);
-
+     
 
       return view('admin.vendor_manage.active_vendor',['data'=>$active]);
 
@@ -327,7 +300,7 @@ class AdminController extends Controller
 
 
          if($id>0){
-            $match = Vendor::where('ven_id', $id)->exists();  
+            $match = Vendor::where('id', $id)->exists();  
                    
             if( $match != $id)
                {
@@ -336,7 +309,7 @@ class AdminController extends Controller
                  return redirect('admin/dashboard');
                 }
        
-              $edit = Vendor::where(['ven_id'=> $id])->get(); 
+              $edit = Vendor::where(['id'=> $id])->get(); 
 
        // dd($id); 
 
@@ -345,7 +318,7 @@ class AdminController extends Controller
                 $data['rest_email']             =  $edit['0']->ven_email;
                 $data['rest_phone']             =  $edit['0']->phone; 
                 $data['rest_status']            =  $edit['0']->ven_status;
-                $data['ven_id']                 =  $edit['0']->ven_id;
+                $data['id']                 =  $edit['0']->id;
                 $data['role']                 =  $edit['0']->role;
                 $data['rest_name']              =  $edit['0']->resturant_name;
 
@@ -379,7 +352,7 @@ class AdminController extends Controller
         $address = $request->address;
          $rest_name = $request->rest_name;
           $role = $request->role;
-           $ven_id = $request->ven_id;
+           $id = $request->id;
             $status = $request->status;
             //dd($status);
      
@@ -419,8 +392,8 @@ class AdminController extends Controller
           ven_status = ? ,
            role = ? 
            
-      where ven_id = ?', 
-      [$sameid,$name,$email,$phone,$address,$rest_name,$status,$role , $ven_id]);
+      where id = ?', 
+      [$sameid,$name,$email,$phone,$address,$rest_name,$status,$role , $id]);
      // dd($request->post());
        /*$affected = DB::table('users')
               ->where('id', 1)
@@ -457,7 +430,7 @@ class AdminController extends Controller
 
       $delete = DB::table('vendors')
 
-      ->where('ven_id',$id)->delete();
+      ->where('id',$id)->delete();
 
       //dd($delete);
 
@@ -494,7 +467,7 @@ class AdminController extends Controller
 
       $delete = DB::table('vendors')
 
-      ->where('ven_id',$id)->delete();
+      ->where('id',$id)->delete();
 
       //dd($delete);
 

@@ -1,10 +1,11 @@
 <?php
 
 namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
 use App\Models\Admin;
 use Hash;
 
-use Illuminate\Database\Seeder;
 
 class AdminSeeder extends Seeder
 {
@@ -15,24 +16,23 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $data = [
-        	'name'    => 'prakash',
-        	'email'   => 'prakash.dawadi2@gmail.com',
-        	'password'=> Hash::make('admin'),
-        	'role'    => 'Super Admin',
-        	'status'  => 'active',
-        ];
+        
 
-        $admin = Admin::create($data);
+        $admin = Admin::create([
+            'name'    => 'prakash',
+            'email'   => 'prakash.dawadi2@gmail.com',
+            'password'=> Hash::make('admin'),
+            'role'    => 'Super Admin',
+            'status'  => 'active',
+        ]);
 
-        $admin_info = [
-        	'name'    => 'admin',
-        	'email'   => 'admin123@gmail.com',
-        	'password'=> Hash::make('admin'),
-        	'role'    => 'Admin',
-        	'status'  => 'active',
-        ];
 
-        $admin = Admin::create($admin_info);
+        $admin_info = Admin::create([
+            'name'    => 'admin',
+            'email'   => 'admin123@gmail.com',
+            'password'=> Hash::make('admin'),
+            'role'    => 'Admin',
+            'status'  => 'active',
+        ]);
     }
 }

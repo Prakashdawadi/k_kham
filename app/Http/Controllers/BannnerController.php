@@ -20,92 +20,95 @@ class BannnerController extends Controller
        return view('admin.banner.list_banner',$data);
     }
 
-     public function add_banner(Request $request, $id=''){
+             public function add_banner(){
+                 return view('admin.banner.add_banner');
+             }
 
-         if($id>0){
-            $match = Bannner::where('id', $id)->exists();  
-            /* dd($id);
-             die;  */      
-            if( $match != $id)
-               {
-               
-                $request->session()->flash('error', 'Invalid key');
-                 return redirect('admin/dashboard');
-                }
-           
-                 $arr = Bannner::where(['id'=> $id])->get();                 
-
-                $data['bans_name']        =  $arr['0']->bans_name;
-                $data['bans_link']        =  $arr['0']->bans_link;
-                $data['bans_image']       =  $arr['0']->bans_image;
-                $data['bans_status']      =  $arr['0']->bans_status;  
-                $data['id']               =   $arr['0']->id;
-                
-                                  
-            return view('admin.banner.add_banner',$data);
-
-            }           
-           
-            else{
-                  $data['bans_name']        =   '';
-                  $data['bans_link']        =   '';
-                  $data['bans_image']       =   '';
-                  $data['bans_status']      =   '';
-                  $data['id']          =   0;                       
-                return view('admin.banner.add_banner',$data);
-            }    
-           
-
-    }
              public function submit(Request $request){
-
-                 $email = session::get('email');
-
-                // dd($email);
-
-       
-            if($request->post('id')>0){
-
-             $request->validate([
-
-            'bans_name'          => 'required',
-            'bans_link'          => 'nullable',
-            'bans_image'         => 'mimes:png,jpeg,jpg',
-            'bans_status'        => 'required|in:active,inactive',
-           
-
-        ]);
-        
-                
-                $data = Bannner::find($request->post('id'));
-                $msg = "data has been updated succesfully";
+                 $id = session::get('id');
+               
+                 $validate = $this->Validate($request,[
+                        'bans_name'          => 'required',
+                        'bans_link'          => 'nullable|',
+                        'bans_image'         => 'mimes:png,jpeg,jpg|required',
+                        'bans_status'        => 'required|in:active,inactive',
 
 
-            }else{
-                 $request->validate([
-
-            'bans_name'          => 'required',
-            'bans_link'          => 'nullable|',
-            'bans_image'         => 'mimes:png,jpeg,jpg|required',
-            'bans_status'        => 'required|in:active,inactive',
-           
-
-        ]);
-        
-                   $data = new Bannner;
-                   $msg  = "Data has been inserted succesfully";
-
-
+                 ]);
+                   //dd($request->all());
+                 try{
+                    DB::beginTransaction();
+                     if($request->hasfile('bans_image')){
+                    /*$imagepath = public_path('images/banner/'.$data->bans_image);
+                    ($imagepath);      
+                     if($request->post('id')>0){
+                    if(File::exists($imagepath)){
+                        unlink($imagepath);       
+                }
+                    }*/
+                       
+                $file          = $request->file('bans_image');                
+                $ext           = $file->getClientOriginalExtension(); 
+                $file_name     = "img-".date('H-m-d-h-i-s').".".$ext;         
+                $request->file('bans_image')->move('images/banner', $file_name);
             }
-      
-                 $data->bans_name       = $request->post('bans_name');
-                 $data->bans_link       = $request->post('bans_link');
-                 $data->bans_status     = $request->post('bans_status');
-                 $data->added_by        = $email;
-                
+                $data = [
+                 'bans_name'       => $request->bans_name,
+                 'bans_link'       => $request->bans_link,
+                 'bans_status'     => $request->bans_status,
+                 'bans_image'       => $file_name,
+                 'added_by'        => $id,
 
-                if($request->hasfile('bans_image')){
-                    $imagepath = public_path('images/banner/'.$data->bans_image);
+                ];       
+                $insert = Bannner::create($data);
+                if($insert){
+                    DB::commit();
+                 $request->session()->flash('success', "Banner has been created");
+                return redirect('admin/banner/list_banner');
+
+                }
+
+                 }catch(Exception $e){
+                    DB::rollback();
+                $request->session()->flash('error', $e->getMessage());
+                return redirect('admin/banner/add_banner');
+
+                 }
+             }
+
+             public function edit_banner($id){
+              $findId = Bannner::find($id);
+                   if(!$findId){
+                   request()->session()->flash('error', "invalid key");
+                    return redirect('admin/banner/list_banner');
+                   }
+             
+
+              $findInfo = Bannner::where('id',$id)->first();
+
+              $data = [
+                'findInfo' => $findInfo,
+                 'id'      => $id,
+              ];
+             return view('admin.banner.edit_banner',$data);
+             }
+
+             public function update(Request $request){
+                  $id = session::get('id');
+                $validate = $this->Validate($request,[
+                    'bans_name'          => 'required',
+                    'bans_link'          => 'nullable',
+                    'bans_image'         => 'mimes:png,jpeg,jpg',
+                    'bans_status'        => 'required|in:active,inactive',
+
+
+                ]);
+
+                try{
+                    DB::beginTransaction();
+                    $findId = Bannner::find($request->id);
+                      if($request->hasfile('bans_image')){
+                    /*$imagepath = public_path('images/banner/'.$data->bans_image);
                     ($imagepath);
 
                    
@@ -114,37 +117,41 @@ class BannnerController extends Controller
                         unlink($imagepath);
                     
                 }
-                    }
+                    }*/
                     
                     
                 $file          = $request->file('bans_image');                
                 $ext           = $file->getClientOriginalExtension(); 
-                $file_name     = "img-".date('H-m-d-h-i-s').".".$ext; 
-                //Image::make($file)->resize(800,400)->save($file_name);               
-                $request->file('bans_image')->move('images/banner', $file_name);
-            
-                         
-                 $data->bans_image = $file_name;
-         }             
-                    $data->save();
+                $file_name     = "img-".date('H-m-d-h-i-s').".".$ext;        
+                $request->file('bans_image')->move('images/banner', $file_name);            
+                 $findId->bans_image = $file_name;
+         }   
 
-                if($data){
-                $request->session()->flash('success', $msg);
+
+                 $findId->bans_name       = $request->bans_name;
+                 $findId->bans_link       = $request->bans_link;
+                 $findId->bans_status     = $request->bans_status;
+                 $findId->updated_by        = $id;
+
+                 $update = $findId->save();
+                 if($update){
+                    DB::commit();
+                     $request->session()->flash('success', "Banner has been Updated");
                 return redirect('admin/banner/list_banner');
 
-             }else{
-                $request->session()->flash('error', 'error uploading banner');
-                 return redirect('admin/banner/list_banner');
-         }
-    }
+                 }
+
+                }catch(Exception $e){
+                    DB::rollback();
+                $request->session()->flash('error', $e->getMessage());
+                return redirect('admin/banner/add_banner');
+                }
+
+             }
 
                  public function delete(Request $request, $id){
-
-       
                     $data = Bannner::find($id);
                     $imagepath = public_path('images/banner/'.$data->cats_image);
-
-                    //dd($imagepath);
 
                      if($request->post('id')>0){
                     if(File::exists($imagepath)){

@@ -67,9 +67,9 @@
               
   
           
-      <td> <a href="{{url('admin/vendor/inactive/edit/'.$datas->ven_id)}}"><button class=" btn-circle btn-success"><i class="far fa-edit"></i> </button>  </a> 
+      <td> <a href="{{url('admin/vendor/inactive/edit/'.$datas->id)}}"><button class=" btn-circle btn-success"><i class="far fa-edit"></i> </button>  </a> 
 
-     <a href="{{url('admin/vendor/inactive/delete/'.$datas->ven_id)}}"> <button onclick="return confirm('Are you sure want to delete {{$datas->name}} vendor? ')"  class="btn btn-circle btn-danger"><i class="far fa-trash-alt"></i> </button> </td> </a>
+     <a href="{{url('admin/vendor/inactive/delete/'.$datas->id)}}"> <button onclick="return confirm('Are you sure want to delete {{$datas->name}} vendor? ')"  class="btn btn-circle btn-danger"><i class="far fa-trash-alt"></i> </button> </td> </a>
       
     </tr>
 

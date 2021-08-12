@@ -36,8 +36,6 @@ class VendorController extends Controller
 
     return view('frontend.vendor.vendor_signup');
 
-
-
     }
 
    public function vendorsignupsubmit(Request $request){
@@ -113,7 +111,7 @@ class VendorController extends Controller
                $request->session()->put('VENDOR_LOGIN', true);
                $request->session()->put('name', $data->name);
                 $request->session()->put('ven_email', $data->ven_email);
-                $request->session()->put('ven_id',$data->ven_id);
+                $request->session()->put('id',$data->id);
                 $request->session()->flash('success','welcome to the homepage');
 
                           return redirect('vendor/dashboard');
@@ -204,13 +202,13 @@ class VendorController extends Controller
       public function list_order(){
 
 
-      $id    = session::get('ven_id');
+      $id    = session::get('id');
       $email = session::get('ven_email');
 
     $data1['result'] = DB::table('orders')->join('vendors','vendors.resturant_id','rest_id')
 
 
-       ->where('vendors.ven_id',$id)
+       ->where('vendors.id',$id)
        ->where('vendors.ven_email', $email)
        ->orderBy('orders.updated_at','DESC')
        ->paginate(5);
@@ -282,19 +280,19 @@ class VendorController extends Controller
 
       public function myprofileview(){
 
-      $id = session::get('ven_id');
+      $id = session::get('id');
       $email = session::get('ven_email');
 
      // dd($id);
       //dd($email);
 
       $arr = DB::table('vendors')
-      ->where('ven_id',$id)
+      ->where('id',$id)
       ->where('ven_email',$email)
       ->get();
 
 
-      $data['id']        =  $arr['0']->ven_id;
+      $data['id']        =  $arr['0']->id;
       $data['email']      =  $arr['0']->ven_email;
       $data['name']      =  $arr['0']->name;
       $data['phone']     =  $arr['0']->phone;
@@ -348,7 +346,7 @@ class VendorController extends Controller
             name      = ?,
             phone     = ?,
             password  = ?
-            where ven_id = ?' ,
+            where id = ?' ,
 
             [$name,$phone, $hash ,$id]);
 
@@ -361,7 +359,7 @@ class VendorController extends Controller
             name      = ?,
             phone     = ?
           
-            where ven_id = ?' ,
+            where id = ?' ,
 
             [$name,$phone,$id]);
           

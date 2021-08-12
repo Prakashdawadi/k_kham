@@ -16,11 +16,16 @@ class CreateCartsTable extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id()->autoIncrements()->unsignedInteger();
             $table->integer('food_id');
-            $table->integer('food_name');
-            $table->integer('res_name');
+            $table->string('food_name');
+            $table->string('res_name');
             $table->integer('quantity');
             $table->integer('food_price');
-
+            $table->integer('total_price');
+            $table->string('session_id');
+            $table->integer('user_id');
+            $table->string('user_email');
+            $table->integer('rest_id');
+            $table->enum('status',['active','inactive'])->default('inactive');
             $table->timestamps();
         });
     }

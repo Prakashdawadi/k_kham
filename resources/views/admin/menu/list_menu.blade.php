@@ -14,7 +14,7 @@
 <div class="row">
     <div class="col-md-12">
 <a href="{{url('admin/menu/add_menu')}}">
-<button class="btn btn-success" ><i class=" fas fa-plus"></i>List menu  </button></a>
+<button class="btn btn-success" ><i class=" fas fa-plus"></i>Add menu  </button></a>
 </div>
 
  </div>        
@@ -41,9 +41,6 @@
     ?>
 
       @foreach( $result as $list)
-         
-      
-     
      <tr>
        <td>{{$key}} </td>
        <?php $key++ ?> 
@@ -67,9 +64,9 @@
     <td><img src="{{asset('images/menu/'.$list->menu_image)}}"  width="100px"; height="100px" ; alt="image"> </td>
       
 
-      <td> <a href="{{url('admin/menu/add_menu/edit/'.$list->menu_id)}}"><button class=" btn-circle btn-success"><i class="far fa-edit"></i> </button>  </a> 
+      <td> <a href="{{url('admin/menu/edit_menu/edit/'.$list->id)}}"><button class=" btn-circle btn-success"><i class="far fa-edit"></i> </button>  </a> 
 
-     <a href="{{url('admin/menu/list_menu/delete/'.$list->menu_id)}}"> <button onclick="return confirm('Are you sure want to delete {{$list->menu_name}} menu? ')" class="btn btn-circle btn-danger"><i class="far fa-trash-alt"></i> </button> </td> </a>
+     <a href="{{url('admin/menu/list_menu/delete/'.$list->id)}}"> <button onclick="return confirm('Are you sure want to delete {{$list->menu_name}} menu? ')" class="btn btn-circle btn-danger"><i class="far fa-trash-alt"></i> </button> </td> </a>
       
     </tr>
     <hr style="border: 2px solid black">

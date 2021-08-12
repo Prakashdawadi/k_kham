@@ -15,17 +15,21 @@ class CreateResturantsTable extends Migration
     {
         Schema::create('resturants', function (Blueprint $table) {
        
-             $table->id()->autoIncrements()->unsignedInteger();
-             $table->string('rest_name');
+            $table->id()->autoIncrements()->unsignedInteger();
+            $table->string('rest_name');
             $table->string('rest_address');
             $table->string('rest_email')->unique();
-            $table->integer('rest_phone');
+            $table->unsignedBigInteger('rest_phone');
             $table->timeTz('rest_otime',0);
             $table->timeTz('rest_ctime',0);
             $table->string('rest_image');
-            $table->foreignId('category_id')->nullable()->constrained('categories','id')->onDelete('SET NULL')->onUpdate('CASCADE');
+
+            $table->unsignedBigInteger('added_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->foreign('added_by')->references('id')->on('admins')->onDelete('SET NULL')->onUpdate('CASCADE');
+            $table->foreign('updated_by')->references('id')->on('admins')->onDelete('SET NULL')->onUpdate('CASCADE');
             $table->enum('rest_status',['active','inactive'])->default('inactive');
-            $table->timestamps();
+           $table->timestamps();
        
         });
     }

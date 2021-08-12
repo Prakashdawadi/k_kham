@@ -23,13 +23,8 @@
 				<th>resturantname</th>
 				
 				<th>Grandtotal</th>
-			
-
 				</thead>
 			<tbody>
-
-				
-
 										<?php 
 											$i=1;
 											 ?>	
@@ -47,22 +42,13 @@
 										{{$datas->order_id}}
 										
 									</td>
-						
 								
+									<td>										
 
-								
-
-									<td>
-										
-
-				{{$datas->order_items}}
-					
-			
-		 
+				   {{$datas->order_items}}
+								 
 								</td>
-
-									
-							
+			
 										<td>
 
 										{{$datas->quantity}}
@@ -73,7 +59,7 @@
 
 										<td>
 												
-								{{$datas->sub_total}}
+								NPR.{{$datas->sub_total}}
 							</td>
 							<td>
 												
@@ -83,15 +69,10 @@
 												
 								NPR.{{$datas->all_total}}
 							</td>
-							
-										
-										
+											
 									</tr>
 
 							@endforeach
-								
-									
-
 												
 			</tbody>
 			

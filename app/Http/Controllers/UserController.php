@@ -57,10 +57,7 @@ class UserController extends Controller
                   $request->session()->flash('error', "email already exists");
                   return redirect()->back();
 
-
                 }else{
-
-
 
                    $this->validate($request,[
                   'name'             => 'required|max:50|min:3|string',
@@ -250,11 +247,6 @@ class UserController extends Controller
 
           if($fetch){
 
-          /* return response()->json([
-           'data' => $fetch,
-           
-                ]);*/
-
             return ['data'=>'Your Food is being: ','mg'=>$fetch];
 
           }else{
@@ -263,14 +255,11 @@ class UserController extends Controller
             return ['msg'=>'Invalid Order ID!! Please provide valid Order ID'];
 
           }
-
-        
+      
         }
 
 
         public function usereditview(){
-
-          //dd('hello edit');
 
           $id = Session::get('id');
           $email = Session::get('email');

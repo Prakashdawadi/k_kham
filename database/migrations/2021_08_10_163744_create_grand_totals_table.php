@@ -15,6 +15,9 @@ class CreateGrandTotalsTable extends Migration
     {
         Schema::create('grand_totals', function (Blueprint $table) {
             $table->id();
+           $table->unsignedBigInteger('user_id');
+           $table->string('email');
+           $table->unsignedBigInteger('all_total');
             $table->timestamps();
         });
     }

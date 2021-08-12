@@ -19,16 +19,16 @@ class CreateOrdersTable extends Migration
            $table->integer('rest_id');
            $table->string('rest_name');
            $table->json('order_items');
+           $table->json('quantity');
+           $table->json('sub_total');
            $table->integer('user_id');
            $table->string('user_name');
            $table->string('email');
            $table->unsignedBigInteger('phone');
            $table->string('user_address');
            $table->integer('all_total');
-          $table->string('payment_mode');
+           $table->string('payment_mode');
            $table->enum('status',['preparing','Ontheway','delivered'])->default('preparing');
-
-
            $table->timestamps();
         });
     }

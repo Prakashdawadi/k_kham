@@ -16,6 +16,7 @@ class Admin extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
         'status'
     ];
      protected $hidden = [
@@ -23,5 +24,5 @@ class Admin extends Authenticatable
         'remember_token',
     ];
 
-      protected $primaryKey = 'id';
+     
 }

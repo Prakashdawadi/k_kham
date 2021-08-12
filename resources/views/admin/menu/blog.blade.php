@@ -1,8 +1,6 @@
 
 @include('frontend.header')
 
-<!-- Website template by freewebsitetemplates.com -->
-
  <link  href="{{asset('product_list/style.css')}}" rel="stylesheet" media="all">
 	
 	<div class="body">

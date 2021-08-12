@@ -1,25 +1,10 @@
- 
-
-
- <div id="upcarts">
-
-
-
- 
+<div id="upcarts">
 @include('frontend.header')
-
-
-
-
-
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
 
-<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
- -->
 <style>
   
 .param {
@@ -66,20 +51,9 @@ var {
 
 
 </style>
-
-
 <div class="container">
-
 <hr>
-
 <div>
-<!-- <table id="divIncidents">  
-<tr class="trNews">  
-<th class="thNews">State</th>  
-<th class="thNews">Header</th>  
-<th class="thNews">News Description</th>  
-</tr>  
-</table>   -->
 </div>  
 
 @foreach($results as $datas) 
@@ -87,21 +61,11 @@ var {
  @if($datas->all_total !== 0)
 <a href="{{url('/index')}}" class="btn btn-primary btn-sm"> Continuing Shopping</a>
 
-
-
 <div class="card">
 
 <table class="table table-hover thead-dark table-bordered shopping-cart-wrap table-responsive">
 <thead class="text-muted thead-dark table-bordered table-hover">
-
- 
-
-   
-   
-
-  
     <div class=" alert-success" id="mydiv1">{{session('message')}}</div>
-   
    
   <th scope="col">Menu-List</th>
    <th scope="col">Resturant_name</th>
@@ -109,7 +73,6 @@ var {
   <th scope="col" width="120">unit Price</th>
    <th scope="col" width="120">Total Price</th>
   <th scope="col" width="200" class="text-right">Action</th>
-
 
 </thead>
 
@@ -252,7 +215,8 @@ $(document).ready(function(){
     //alert(prodId);
     jQuery.ajax({
       datatype:'html',
-      url: "http://k_kham.loc/index/cart/update/" + prodId,
+      //url: "http://k_kham.loc/index/cart/update/" + prodId,
+      url: "http://127.0.0.1:8000/index/cart/update/" + prodId,
       data:'rowid=' + rowid + '&prodId=' + prodId + '&qty=' +qty,
       type:'get',
       success: function(data){

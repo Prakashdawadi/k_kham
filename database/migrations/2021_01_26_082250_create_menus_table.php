@@ -20,6 +20,13 @@ class CreateMenusTable extends Migration
             $table->Integer('menu_price');
             $table->foreignId('rests_id')->nullable()->constrained('resturants','id')->onDelete('SET NULL')->onUpdate('CASCADE');
             $table->enum('menu_status',['active','inactive'])->default('inactive');
+            $table->string('menu_image');
+            $table->longText('ingredients');
+            $table->longText('direction');
+            $table->unsignedBigInteger('added_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->foreign('added_by')->references('id')->on('admins')->onDelete('SET NULL')->onUpdate('CASCADE');
+            $table->foreign('updated_by')->references('id')->on('admins')->onDelete('SET NULL')->onUpdate('CASCADE');
             $table->timestamps();
      
         });

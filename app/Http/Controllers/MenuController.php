@@ -9,8 +9,6 @@ use Illuminate\Http\Request;
 use file;
 use Session;
 
-
-
 class MenuController extends Controller
 {
      public function list_menu()
@@ -21,162 +19,175 @@ class MenuController extends Controller
        return view('admin.menu.list_menu',$data);
     }
 
-            public function add_menu(Request $request, $menu_id=''){
+            public function add_menu(){
 
-                $menu['rest'] = Resturant::select('rest_name','id')->get();
+                 $menu['rest'] = Resturant::select('rest_name','id')
+                                ->where('rest_status','active')
+                                ->get();
 
-                /*dd($menu['rest']);
-                die;*/
+                   return view('admin.menu.add_menu',$menu);
 
-                 if($menu_id>0){
-                    $match = Menu::where('menu_id', $menu_id)->exists();  
-                    /* dd($id);
-                     die;  */      
-                    if( $match != $menu_id)
-                       {
-                       
-                        $request->session()->flash('error', 'Invalid key');
-                         return redirect('admin/dashboard');
-                        }
-                   
-                         $arr = Menu::where(['menu_id'=> $menu_id])->get();                 
+               }
 
-                        $data['menu_name']         =  $arr['0']->menu_name;
-                        $data['menu_price']        =  $arr['0']->menu_price; 
-                        $data['rests_id']          =  $arr['0']->rests_id;               
-                        $data['menu_status']       =  $arr['0']->menu_status;  
-                       $data['menu_image']         =   $arr['0']->menu_image;
-                        $data['menu_id']           =   $arr['0']->menu_id;
-                        $data['ingredients']       =   $arr['0']->ingredients;
-                        $data['direction']         =   $arr['0']->direction;
-                                          
-                         return view('admin.menu.add_menu',$data , $menu);
-
-                }           
-               
-                else{
-                      $data['menu_name']         =     '';
-                      $data['menu_price']        =     '';
-                      $data['menu_status']       =     '';
-                      $data['rests_id']          =     '';
-                      $data['menu_image']        =      '';
-                      $data['menu_id']           =      0;     
-                      $data['ingredients']       =      '';
-                      $data['direction']         =      '';               
-                    return view('admin.menu.add_menu',$data, $menu);
-                }               
-    }
              public function submit(Request $request){   
 
+
                 $email = session::get('email');
+                $id     = session::get('id');
+                $valdate = $this->Validate($request , [
+                    'menu_name'         =>  ' required',
+                    'menu_price'        =>   ' required' ,
+                    'menu_image'        =>   'mimes:png,jpeg,jpg|required',
+                    'rests_id'          =>  'required',
+                    'menu_status'       => 'required|in:active,inactive',
+                    'ingredients'       => 'string|required|min:10',
+                    'direction'         => 'string|required|min:10',
 
-              // dd($request->menu_name);
+                ]);
 
-
-                
-                   if($request->post('id')>0){
-
-
-
-             $request->validate([
-
-            'menu_name'     => 'required',
-            'menu_price'    => 'required',
-            'menu_image'    => 'mimes:png,jpeg,jpg',
-            'rests_id'      =>  'required',
-            'menu_status'   => 'required|in:active,inactive',
-            'ingredients'   => 'string|required|min:10',
-            'direction'   => 'string|required|min:10',
-           
-
-        ]);
-
-                  $data = Menu::find($request->post('id'));
-                  $msg = "data has been updated succesfully";
+                try{
+                    DB::beginTransaction();
 
 
-                  //dd($request->menu_name);
-
-                  }
-                  else
-                  {
-
-                    //return $request->post();
-                 $request->validate([
-
-            'menu_name'         =>  ' required',
-            'menu_price'        =>   ' required' ,
-            'menu_image'        =>   'mimes:png,jpeg,jpg|required',
-            'rests_id'          =>  'required',
-            'menu_status'       => 'required|in:active,inactive',
-            'ingredients'       => 'string|required|min:10',
-            'direction'         => 'string|required|min:10',
-
-           
-
-        ]);
-                     //   dd( $request->post());
-
-
-                    $data = new Menu;                 
-                   $msg  = "Data has been inserted succesfully";
-         
-               }   
-                 $data->menu_name       =   $request->post('menu_name');
-                 $data->menu_price      =   $request->post('menu_price');
-                 $data->rests_id        =    $request->post('rests_id');
-                 $data->menu_status     =   $request->post('menu_status');
-             
-                 $data->ingredients     =   $request->post('ingredients');
-                 $data->direction       =   $request->post('direction');
-
-                 $data->added_by        =      $email;           
-                 
-            // for strong image and deleting if new image come
                     if($request->hasfile('menu_image')){
-                    $imagepath = public_path('images/menu/'.$data->menu_image);
+                    /*$imagepath = public_path('images/menu/'.$data->menu_image);
                     ($imagepath);
-
-                   
                      if($request->post('menu_id')>0){
                     if(File::exists($imagepath)){
                         unlink($imagepath);
                     
                 }
-                    }
+                    }*/
                     
                     
                 $file          = $request->file('menu_image');                
                 $ext           = $file->getClientOriginalExtension(); 
-                $file_name     = "img-".date('H-m-d-h-i-s').".".$ext; 
-                //Image::make($file)->resize(800,400)->save($file_name);               
+                $file_name     = "img-".date('H-m-d-h-i-s').".".$ext;     
                 $request->file('menu_image')->move('images/menu', $file_name);
-                         
-                 $data->menu_image = $file_name;
             }
-                $data->save();
-                
-                      // dd()            
-     
 
-                    if($data){
-                    $request->session()->flash('success', $msg);
-                    return redirect('admin/menu/list_menu');
+                $data = [
 
-                   }else{
-                    $request->session()->flash('error', 'error uploading menu');
-                    return redirect('admin/menu/list_menu');
+                 'menu_name'      =>   $request->menu_name,
+                 'rests_id'       =>   $request->rests_id,
+                 'menu_price'     =>   $request->menu_price,
+                 'rests_id'       =>    $request->rests_id,
+                 'menu_status'    =>   $request->menu_status,
+                 'menu_image'     =>  $file_name,
              
+                 'ingredients'    =>   $request->ingredients,
+                 'direction'      =>   $request->direction,
 
-    }
-}
+                 'added_by'       =>    $id  
+
+
+                ];
+                $insert = Menu::create($data);
+                if($insert){
+                    DB::commit();
+                     $request->session()->flash('success', "menu has been added succesfully");
+                    return redirect('admin/menu/list_menu');
+
+                }
+
+
+                }catch(Exception $e){
+                    DB::rollback();
+                     $request->session()->flash('error', $e->getMessage());
+                    return redirect('admin/menu/add_menu');
+                }
+
+
+            }
+
+                public function edit_menu($id){
+                   $findId = Menu::find($id);
+                   if(!$findId){
+
+                   request()->session()->flash('error', "invalid key");
+                    return redirect('admin/menu/list_menu');
+
+                   }
+
+                   $findInfo = Menu::where('id',$id)->first();
+
+
+                   $resturantInfo = Resturant::select('rest_name','id')
+                                ->where('rest_status','active')
+                                ->get();
+
+                   $data = [
+                    'findInfo'  => $findInfo,
+                    'id'        => $id,
+                    'resturantInfo' => $resturantInfo
+                   ];
+
+                    return view('admin.menu.edit_menu',$data);
+
+                }
+                public function update(Request $request){
+                    $id = session::get('id');
+            
+                $validate = $this->Validate($request, [
+
+                 'menu_name'         =>   ' required',
+                'menu_price'         =>   ' required' ,
+                'menu_image'         =>   'nullable|mimes:png,jpeg,jpg',
+                'menu_status'        =>   'required|in:active,inactive',
+                'ingredients'        =>   'string|required|min:10',
+                'direction'          =>   'string|required|min:10',
+ 
+        ]);
+                try{
+                    DB::beginTransaction();
+                     $findData = menu::find($request->id);
+                     if($request->hasfile('menu_image')){
+                    /*$imagepath = public_path('images/menu/'.$data->menu_image);
+                    ($imagepath);
+                     if($request->post('menu_id')>0){
+                    if(File::exists($imagepath)){
+                        unlink($imagepath);     
+                }
+                    }*/
+                    
+                    
+                $file          = $request->file('menu_image');                
+                $ext           = $file->getClientOriginalExtension(); 
+                $file_name     = "img-".date('H-m-d-h-i-s').".".$ext;     
+                $request->file('menu_image')->move('images/menu', $file_name);
+                $findData->menu_image = $file_name;
+            }
+
+              
+                 $findData->menu_name      =   $request->menu_name;
+                 $findData->rests_id       =   $request->rests_id;
+                 $findData->menu_price     =   $request->menu_price;
+                  $findData->rests_id      =   $request->rests_id;
+                 $findData->menu_status    =   $request->menu_status;
+                 $findData->ingredients    =   $request->ingredients;
+                 $findData->direction      =   $request->direction;
+                 $updated_by                =    $id;
+              
+                $update = $findData->save();
+                if($update){
+                    DB::commit();
+                     $request->session()->flash('success', "menu has been updated succesfully");
+                    return redirect('admin/menu/list_menu');
+                }
+
+                }catch(Exception $e){
+                    DB::rollback();
+                     $request->session()->flash('error', $e->getMessage());
+                    return redirect('admin/menu/list_menu');
+
+                }
+
+                }
+
                  public function delete(Request $request, $menu_id){
       
                         $data = Menu::find($menu_id);
-                       // dd($data);
                         $imagepath = public_path('images/menu/'.$data->menu_image);
-
-                    //dd($imagepath);
 
                      if($request->post('menu_id')>0){
                     if(File::exists($imagepath)){
@@ -193,27 +204,20 @@ class MenuController extends Controller
                          }else{
                             $request->session()->flash('error', 'error deleting data');
                             return redirect('admin/menu/list_menu');
-
-        
-    
        
     }
 }
     
     public function viewproduct($product_id){
-
-       // return('hello');
-        //dd($product_id);
+       
 
         $banner = DB::table('bannners')->select('bans_image')
         ->where('bans_status','active')->inRandomOrder()->limit(5)->get();
 
-      //  dd($banner);
-
-        $product_info = DB::table('menus')->select('menu_image','menu_name','ingredients','direction')
-        ->where('menu_id',$product_id)
+        $product_info = Menu::select('menu_image','menu_name','ingredients','direction')
+        ->where('rests_id',$product_id)
         ->get();
-       // dd($product_info);
+       
 
         return view('admin.menu.blog',['data'=>$product_info,'banner'=>$banner]);
 

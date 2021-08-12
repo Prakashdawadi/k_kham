@@ -75,7 +75,7 @@
 
 						
 
-							<input type="hidden" name="ven_id" value="{{$ven_id}}">
+							<input type="hidden" name="id" value="{{$id}}">
 
 					<div class="form-group row">
 						<label for="" class="col-sm-12 col-md-3">  Status </label>

@@ -97,7 +97,7 @@ Route::get('vendor/menu/list_menu',[VendorController::class,'list_menu']);
 Route::get('vendor/menu/add_menu',[VendorController::class,'add_menu']);
 Route::post('vendor/menu/list_menu',[VendorController::class,'submit'])->name('vendor/menu/submit');
 Route::get('vendor/menu/list_menu/delete/{id}',[VendorController::class,'delete']);
-Route::get('vendor/menu/add_menu/edit/{id}',[VendorController::class,'add_menu']);
+
 
 
 
@@ -257,32 +257,29 @@ Route::get('admin/dashboard',[AdminController::class,'dashboard']);
 Route::get('admin/logout',[AdminController::class,'adminlogout']);
 
 Route::get('admin/updatepassword',[UserController::class,'updatepassword']);
-// category route
-Route::get('admin/category/list_category',[CategoryController::class,'list_category']);
-Route::get('admin/category/add_category',[CategoryController::class,'add_category']);
-Route::post('admin/category/list_category',[CategoryController::class,'submit'])->name('admin/category/submit');
-Route::get('admin/category/list_category/delete/{id}',[CategoryController::class,'delete']);
-Route::get('admin/category/add_category/edit/{id}',[CategoryController::class,'add_category']);
 
-// coupon route
-Route::get('admin/coupon/list_coupon',[CouponController::class,'list_coupon']);
-Route::get('admin/coupon/add_coupon',[CouponController::class,'add_coupon']);
-Route::post('admin/coupon/list_coupon',[CouponController::class,'submit'])->name('admin/coupon/submit');
-Route::get('admin/coupon/list_coupon/delete/{id}',[CouponController::class,'delete']);
-Route::get('admin/coupon/add_coupon/edit/{id}',[CouponController::class,'add_coupon']);
+
+
 
 // Banner route
 Route::get('admin/banner/list_banner',[BannnerController::class,'list_banner']);
 Route::get('admin/banner/add_banner',[BannnerController::class,'add_banner']);
 Route::post('admin/banner/list_banner',[BannnerController::class,'submit'])->name('admin/banner/submit');
 Route::get('admin/banner/list_banner/delete/{id}',[BannnerController::class,'delete']);
-Route::get('admin/banner/add_banner/edit/{id}',[BannnerController::class,'add_banner']);
+Route::get('admin/banner/edit_banner/edit/{id}',[BannnerController::class,'edit_banner']);
+Route::post('admin/banner/update_banner',[BannnerController::class,'update'])->name('admin/banner/update');
+
 
 // resturant route
 
 Route::get('admin/resturant/list_resturant',[ResturantController::class,'list_resturant']);
 Route::get('admin/resturant/add_resturant',[ResturantController::class,'add_resturant']);
+Route::get('admin/resturant/edit_resturant/edit/{id}',[ResturantController::class,'edit_resturant']);
 Route::post('admin/resturant/list_resturant',[ResturantController::class,'submit'])->name('admin/resturant/submit');
+Route::post('admin/resturant/edit_resturant',[ResturantController::class,'update'])->name('admin/resturant/update');
+
+
+
 Route::get('admin/resturant/list_resturant/delete/{id}',[ResturantController::class,'delete']);
 Route::get('admin/resturant/add_resturant/edit/{id}',[ResturantController::class,'add_resturant']);
 
@@ -293,7 +290,10 @@ Route::get('admin/menu/list_menu',[MenuController::class,'list_menu']);
 Route::get('admin/menu/add_menu',[MenuController::class,'add_menu']);
 Route::post('admin/menu/list_menu',[MenuController::class,'submit'])->name('admin/menu/submit');
 Route::get('admin/menu/list_menu/delete/{id}',[MenuController::class,'delete']);
-Route::get('admin/menu/add_menu/edit/{id}',[MenuController::class,'add_menu']);
+Route::get('admin/menu/edit_menu/edit/{id}',[MenuController::class,'edit_menu']);
+Route::post('admin/menu/edit_menu/update',[MenuController::class,'update'])->name('admin/menu/update');
+
+
 
 //admin order view
 
