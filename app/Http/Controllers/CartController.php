@@ -555,25 +555,7 @@ class CartController extends Controller
             $sessionemail = session::get('email');
 
           if($request->id>0){
-
-           // dd($total_price);
-
-           // $total_price = 0;
-
-           /* $updateTotal = DB::table('carts')
-            ->where('id',$request->id)
-            //->where('email', $email)
-            ->update(['total_price' =>$total_price]);*/
-
-            /*$countItem = DB::table('carts')->select('id')
-            ->where('user_id', $sessionId)
-            ->where('user_email',  $sessionemail)
-            ->count();*/
-
-            //dd($countItem);
-
             
-
             $deleteId = Cart::find($request->id);
            /* ->where('user_id',$sessionId)
             ->where('user_email', $sessionemail);*/
@@ -620,7 +602,8 @@ class CartController extends Controller
         }
 
 
-        //dd($total);
+        $total = $total +100;
+       // dd($total);
 
 
         $cart = DB::table('grand_totals')->select('user_id','email')
